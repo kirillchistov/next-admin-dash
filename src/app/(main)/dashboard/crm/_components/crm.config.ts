@@ -300,7 +300,7 @@ export const recentLeadsData = [
   },
   {
     id: "L-1002",
-    name: "Ammar Khnz",
+    name: "Kir Chistov",
     company: "BE",
     status: "Contacted",
     source: "Referral",

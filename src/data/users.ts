@@ -9,9 +9,9 @@ export const users = [
   },
   {
     id: "2",
-    name: "Ammar Khan",
-    username: "ammarkhnz",
-    email: "hello@ammarkhnz.com",
+    name: "Christoff K",
+    username: "christoffk",
+    email: "hello@christoffk.com",
     avatar: "",
     role: "admin",
   },
