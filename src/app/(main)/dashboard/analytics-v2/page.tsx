@@ -4,8 +4,8 @@ import { AnalyticsKpiStrip } from "./_components/analytics-kpi-strip";
 import { AnalyticsToolbar } from "./_components/analytics-toolbar";
 import { EngagementMomentumCard } from "./_components/engagement-momentum-card";
 import { TrafficTrendCard } from "./_components/traffic-trend-card";
+// Import this stylesheet in any page or component that renders country flag classes.
 import "@/styles/flag-icons/flags.css";
-// import { VisitorCoverageCard } from "./_components/visitor-coverage-card";
 
 export default function Page() {
   return (
@@ -34,33 +34,32 @@ export default function Page() {
           <AnalyticsKpiStrip />
           <EngagementMomentumCard />
           <TrafficTrendCard />
-          {/* <VisitorCoverageCard /> */}
         </TabsContent>
 
         <TabsContent value="audience">
-          <AnalyticsTabPlaceholder label="Audience view coming soon." />
+          <div className="flex h-64 items-center justify-center rounded-xl border border-border border-dashed text-muted-foreground">
+            Audience view coming soon.
+          </div>
         </TabsContent>
 
         <TabsContent value="acquisition">
-          <AnalyticsTabPlaceholder label="Acquisition view coming soon." />
+          <div className="flex h-64 items-center justify-center rounded-xl border border-border border-dashed text-muted-foreground">
+            Acquisition view coming soon.
+          </div>
         </TabsContent>
 
         <TabsContent value="engagement">
-          <AnalyticsTabPlaceholder label="Engagement view coming soon." />
+          <div className="flex h-64 items-center justify-center rounded-xl border border-border border-dashed text-muted-foreground">
+            Engagement view coming soon.
+          </div>
         </TabsContent>
 
         <TabsContent value="conversions">
-          <AnalyticsTabPlaceholder label="Conversions view coming soon." />
+          <div className="flex h-64 items-center justify-center rounded-xl border border-border border-dashed text-muted-foreground">
+            Conversions view coming soon.
+          </div>
         </TabsContent>
       </Tabs>
-    </div>
-  );
-}
-
-function AnalyticsTabPlaceholder({ label }: { label: string }) {
-  return (
-    <div className="flex h-64 items-center justify-center rounded-xl border border-border border-dashed text-muted-foreground">
-      {label}
     </div>
   );
 }

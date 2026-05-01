@@ -116,7 +116,7 @@ export function EngagementMomentumCard() {
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent className="w-56" labelFormatter={() => "Traffic quality"} />}
+              content={<ChartTooltipContent className="w-40" labelFormatter={() => "Traffic quality"} />}
             />
             <Area
               dataKey="engagedVisits"

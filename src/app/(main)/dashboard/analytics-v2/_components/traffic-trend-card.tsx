@@ -98,7 +98,7 @@ export function TrafficTrendCard() {
         </CardAction>
       </CardHeader>
 
-      <CardContent className="flex max-h-64 flex-col gap-4">
+      <CardContent className="flex flex-col gap-4">
         <div className="flex items-end justify-between">
           <div className="flex items-baseline gap-1">
             <span className="text-2xl tabular-nums leading-none tracking-tight">24</span>
@@ -117,23 +117,23 @@ export function TrafficTrendCard() {
             <Bar dataKey="visitors" fill="var(--color-visitors)" shape={RealtimeBarShape} />
           </BarChart>
         </ChartContainer>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-          <div className="flex items-center gap-3">
+        <div className="grid grid-cols-2">
+          <div className="flex items-center gap-3 border-border/50 border-r border-b pt-1 pr-5 pb-4">
             <span aria-hidden="true" className="flag:US shrink-0 rounded-xs text-lg ring-1 ring-foreground/10" />
             <span className="min-w-0 flex-1 truncate text-sm">United States</span>
             <span className="text-sm tabular-nums">14</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 border-border/50 border-b pt-1 pb-4 pl-5">
             <span aria-hidden="true" className="flag:GB shrink-0 rounded-xs text-lg ring-1 ring-foreground/10" />
             <span className="min-w-0 flex-1 truncate text-sm">United Kingdom</span>
             <span className="text-sm tabular-nums">4</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 border-border/50 border-r pt-4 pr-5 pb-1">
             <span aria-hidden="true" className="flag:CA shrink-0 rounded-xs text-lg ring-1 ring-foreground/10" />
             <span className="min-w-0 flex-1 truncate text-sm">Canada</span>
             <span className="text-sm tabular-nums">3</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 pt-4 pb-1 pl-5">
             <span aria-hidden="true" className="flag:IN shrink-0 rounded-xs text-lg ring-1 ring-foreground/10" />
             <span className="min-w-0 flex-1 truncate text-sm">India</span>
             <span className="text-sm tabular-nums">3</span>
