@@ -9,9 +9,9 @@ export function AnalyticsKpiStrip() {
       <div className="grid divide-y *:data-[slot=card]:rounded-none *:data-[slot=card]:ring-0 md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-5">
         <Card>
           <CardHeader>
-            <CardTitle className="font-normal text-muted-foreground text-sm">Unique Visitors</CardTitle>
+            <CardTitle className="font-normal text-sm">Unique Visitors</CardTitle>
             <CardAction>
-              <Ellipsis className="size-4 text-muted-foreground" />
+              <Ellipsis className="size-4" />
             </CardAction>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
@@ -35,9 +35,9 @@ export function AnalyticsKpiStrip() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="font-normal text-muted-foreground text-sm">Sessions</CardTitle>
+            <CardTitle className="font-normal text-sm">Sessions</CardTitle>
             <CardAction>
-              <Ellipsis className="size-4 text-muted-foreground" />
+              <Ellipsis className="size-4" />
             </CardAction>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
@@ -61,9 +61,9 @@ export function AnalyticsKpiStrip() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="font-normal text-muted-foreground text-sm">Pageviews</CardTitle>
+            <CardTitle className="font-normal text-sm">Pageviews</CardTitle>
             <CardAction>
-              <Ellipsis className="size-4 text-muted-foreground" />
+              <Ellipsis className="size-4" />
             </CardAction>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
@@ -87,9 +87,9 @@ export function AnalyticsKpiStrip() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="font-normal text-muted-foreground text-sm">Engagement Rate</CardTitle>
+            <CardTitle className="font-normal text-sm">Engagement Rate</CardTitle>
             <CardAction>
-              <Ellipsis className="size-4 text-muted-foreground" />
+              <Ellipsis className="size-4" />
             </CardAction>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
@@ -113,9 +113,9 @@ export function AnalyticsKpiStrip() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="font-normal text-muted-foreground text-sm">Conversion Rate</CardTitle>
+            <CardTitle className="font-normal text-sm">Conversion Rate</CardTitle>
             <CardAction>
-              <Ellipsis className="size-4 text-muted-foreground" />
+              <Ellipsis className="size-4" />
             </CardAction>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
