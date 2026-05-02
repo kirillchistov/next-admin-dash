@@ -115,10 +115,10 @@ export function TopTrafficSources() {
             <TrafficSourceBarChart data={sourcesData} />
           </TabsContent>
 
-          <TabsContent value="campaigns" className="px-2.5">
+          <TabsContent value="campaigns" className="px-4">
             <TrafficSourceBarChart data={campaignsData} />
           </TabsContent>
-          <TabsContent value="referrers" className="px-2.5">
+          <TabsContent value="referrers" className="px-4">
             <TrafficSourceBarChart data={referrersData} />
           </TabsContent>
         </Tabs>
