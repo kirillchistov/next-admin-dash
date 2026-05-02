@@ -70,11 +70,6 @@ export const sidebarItems: NavGroup[] = [
         icon: Gauge,
       },
       {
-        title: "Analytics V2",
-        url: "/dashboard/analytics-v2",
-        icon: Gauge,
-      },
-      {
         title: "Productivity",
         url: "/dashboard/productivity",
         icon: ListTodo,
@@ -169,6 +164,7 @@ export const sidebarItems: NavGroup[] = [
           { title: "Default V1", url: "/dashboard/default-v1" },
           { title: "CRM V1", url: "/dashboard/crm-v1" },
           { title: "Finance V1", url: "/dashboard/finance-v1" },
+          { title: "Analytics V1", url: "/dashboard/analytics-v1" },
         ],
       },
     ],
