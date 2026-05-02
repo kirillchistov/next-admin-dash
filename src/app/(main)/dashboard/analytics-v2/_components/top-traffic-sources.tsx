@@ -91,7 +91,7 @@ export function TopTrafficSources() {
   return (
     <Card className="h-full gap-2">
       <CardHeader>
-        <CardTitle className="font-normal">Visitors</CardTitle>
+        <CardTitle className="font-normal">Traffic Sources</CardTitle>
         <CardAction>
           <Ellipsis className="size-4" />
         </CardAction>
