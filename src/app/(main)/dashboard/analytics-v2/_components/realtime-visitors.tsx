@@ -1,6 +1,6 @@
 "use client";
 
-import { Ellipsis, RefreshCw } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import { Bar, BarChart, type BarShapeProps, XAxis, YAxis } from "recharts";
 
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -104,9 +104,12 @@ export function RealtimeVisitors() {
             <span className="text-2xl tabular-nums leading-none tracking-tight">24</span>
             <span className="text-muted-foreground text-sm">per minute</span>
           </div>
-          <div className="flex items-center gap-1 text-muted-foreground text-sm">
-            <RefreshCw className="size-3" />
-            <span>Realtime</span>
+          <div className="flex items-center gap-2 text-muted-foreground text-sm">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-green-500 opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-green-500" />
+            </span>
+            <span>Live</span>
           </div>
         </div>
         <ChartContainer config={chartConfig} className="h-36 w-full">
