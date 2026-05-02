@@ -5,7 +5,7 @@ import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/componen
 
 export function AnalyticsKpiStrip() {
   return (
-    <div className="overflow-hidden rounded-xl bg-card shadow-xs ring-1 ring-foreground/10 xl:col-span-12">
+    <div className="overflow-hidden rounded-xl bg-card shadow-xs ring-1 ring-foreground/10">
       <div className="grid divide-y *:data-[slot=card]:rounded-none *:data-[slot=card]:ring-0 md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-5">
         <Card>
           <CardHeader>

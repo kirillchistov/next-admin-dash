@@ -2,8 +2,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { AnalyticsKpiStrip } from "./_components/analytics-kpi-strip";
 import { AnalyticsToolbar } from "./_components/analytics-toolbar";
-import { EngagementMomentumCard } from "./_components/engagement-momentum-card";
-import { TrafficTrendCard } from "./_components/traffic-trend-card";
+import { RealtimeVisitors } from "./_components/realtime-visitors";
+import { TrafficQuality } from "./_components/traffic-quality";
+
 // Import this stylesheet in any page or component that renders country flag classes.
 import "@/styles/flag-icons/flags.css";
 
@@ -30,10 +31,17 @@ export default function Page() {
           <AnalyticsToolbar />
         </div>
 
-        <TabsContent value="overview" className="grid grid-cols-1 gap-4 xl:grid-cols-12">
+        <TabsContent value="overview" className="flex flex-col gap-4">
           <AnalyticsKpiStrip />
-          <EngagementMomentumCard />
-          <TrafficTrendCard />
+
+          <div className="grid grid-cols-1 items-stretch gap-4 xl:grid-cols-12">
+            <div className="xl:col-span-7">
+              <TrafficQuality />
+            </div>
+            <div className="xl:col-span-5">
+              <RealtimeVisitors />
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value="audience">

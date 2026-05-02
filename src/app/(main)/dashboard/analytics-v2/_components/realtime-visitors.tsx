@@ -88,9 +88,9 @@ function RealtimeBarShape(props: BarShapeProps) {
   );
 }
 
-export function TrafficTrendCard() {
+export function RealtimeVisitors() {
   return (
-    <Card className="xl:col-span-5">
+    <Card className="h-full">
       <CardHeader>
         <CardTitle className="font-normal">Realtime Visitors</CardTitle>
         <CardAction>
