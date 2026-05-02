@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AnalyticsKpiStrip } from "./_components/analytics-kpi-strip";
 import { AnalyticsToolbar } from "./_components/analytics-toolbar";
 import { RealtimeVisitors } from "./_components/realtime-visitors";
+import { TopTrafficSources } from "./_components/top-traffic-sources";
 import { TrafficQuality } from "./_components/traffic-quality";
 
 // Import this stylesheet in any page or component that renders country flag classes.
@@ -40,6 +41,12 @@ export default function Page() {
             </div>
             <div className="xl:col-span-5">
               <RealtimeVisitors />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-12">
+            <div className="xl:col-span-5 xl:col-start-8">
+              <TopTrafficSources />
             </div>
           </div>
         </TabsContent>

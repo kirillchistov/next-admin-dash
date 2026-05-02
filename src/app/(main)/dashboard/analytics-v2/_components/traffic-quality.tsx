@@ -123,7 +123,7 @@ export function TrafficQuality() {
       <CardHeader>
         <CardTitle className="font-normal">Traffic Quality</CardTitle>
         <CardAction>
-          <Ellipsis className="size-4 text-muted-foreground" />
+          <Ellipsis className="size-4" />
         </CardAction>
       </CardHeader>
 

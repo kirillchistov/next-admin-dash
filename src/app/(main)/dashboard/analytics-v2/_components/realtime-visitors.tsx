@@ -94,7 +94,7 @@ export function RealtimeVisitors() {
       <CardHeader>
         <CardTitle className="font-normal">Realtime Visitors</CardTitle>
         <CardAction>
-          <Ellipsis className="size-4 text-muted-foreground" />
+          <Ellipsis className="size-4" />
         </CardAction>
       </CardHeader>
 
