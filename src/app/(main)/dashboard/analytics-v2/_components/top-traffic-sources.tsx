@@ -111,7 +111,7 @@ export function TopTrafficSources() {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="sources" className="px-2.5">
+          <TabsContent value="sources" className="px-4">
             <TrafficSourceBarChart data={sourcesData} />
           </TabsContent>
 
