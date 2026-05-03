@@ -60,7 +60,7 @@ Most admin templates I found, free or paid, felt cluttered, outdated, or too rig
 - Analytics Dashboard  
 - Productivity Dashboard  
 - Authentication (4 screens)  
-- Legacy: Default v1, CRM v1, Finance v1
+- Legacy: Default v1, CRM v1, Finance v1, Analytics v1
 
 ### Coming Soon
 - E-commerce Dashboard  
