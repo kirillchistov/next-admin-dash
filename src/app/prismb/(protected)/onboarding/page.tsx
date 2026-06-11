@@ -8,7 +8,7 @@ import { Check, ChevronRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-import { OnboardingData, StepBusiness, StepChannels, StepDone, StepGoals } from "./_components/onboarding-steps";
+import { type OnboardingData, StepBusiness, StepChannels, StepDone, StepGoals } from "./_components/onboarding-steps";
 
 const STEPS = ["О бизнесе", "Ваши цели", "Каналы", "Готово!"];
 
@@ -53,7 +53,19 @@ export default function OnboardingPage() {
         {step === 0 && <StepBusiness data={data} onUpdate={updateData} onNext={next} />}
         {step === 1 && <StepGoals data={data} onUpdate={updateData} onNext={next} onBack={back} />}
         {step === 2 && <StepChannels data={data} onUpdate={updateData} onNext={next} onBack={back} />}
-        {step === 3 && <StepDone data={data} onGo={() => router.push("/prismb/dashboard")} />}
+        {step === 3 && (
+          <StepDone
+            data={data}
+            onGo={async () => {
+              await fetch("/api/prismb/save-onboarding", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+              });
+              router.push("/prismb/dashboard");
+            }}
+          />
+        )}
       </div>
     </div>
   );

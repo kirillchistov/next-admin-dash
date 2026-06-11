@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 
+import type { OnboardingCookie } from "@/app/api/prismb/save-onboarding/route";
 import { getClientData } from "@/data/prismb";
 
 import { AlertsPanel } from "./_components/alerts-panel";
@@ -11,7 +12,23 @@ export default async function PriSMBDashboardPage() {
   const cookieStore = await cookies();
   const clientId = cookieStore.get("prismb_client_id")?.value;
   const data = getClientData(clientId);
-  const { companyProfile, last30DaysMetrics, dailyTrafficData, channelBreakdown, recommendations } = data;
+
+  const onboardingRaw = cookieStore.get("prismb_onboarding")?.value;
+  const onboarding: OnboardingCookie | null = onboardingRaw ? (JSON.parse(onboardingRaw) as OnboardingCookie) : null;
+
+  const companyProfile =
+    onboarding && !clientId
+      ? {
+          ...data.companyProfile,
+          name: onboarding.companyName,
+          industry: onboarding.industry || data.companyProfile.industry,
+          primaryGoal: onboarding.goal || data.companyProfile.primaryGoal,
+          monthlyAdBudget: onboarding.budget,
+          channels: onboarding.channels.length ? onboarding.channels : data.companyProfile.channels,
+        }
+      : data.companyProfile;
+
+  const { last30DaysMetrics, dailyTrafficData, channelBreakdown, recommendations } = data;
 
   return (
     <div className="space-y-6">
