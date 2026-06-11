@@ -4,6 +4,7 @@ import type { OnboardingCookie } from "@/app/api/prismb/save-onboarding/route";
 import { getClientData } from "@/data/prismb";
 
 import { AlertsPanel } from "./_components/alerts-panel";
+import { ExportButton } from "./_components/export-button";
 import { KPICards } from "./_components/kpi-cards";
 import { Recommendations } from "./_components/recommendations";
 import { TrafficChart } from "./_components/traffic-chart";
@@ -32,9 +33,16 @@ export default async function PriSMBDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">{companyProfile.name}</h1>
-        <p className="mt-1 text-sm text-slate-500">Цель: {companyProfile.primaryGoal}</p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">{companyProfile.name}</h1>
+          <p className="mt-1 text-sm text-slate-500">Цель: {companyProfile.primaryGoal}</p>
+        </div>
+        <ExportButton
+          companyName={companyProfile.name}
+          dailyTrafficData={dailyTrafficData}
+          channelBreakdown={channelBreakdown}
+        />
       </div>
 
       <KPICards companyProfile={companyProfile} metrics={last30DaysMetrics} />
