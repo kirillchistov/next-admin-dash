@@ -2,13 +2,15 @@ import { cookies } from "next/headers";
 
 export type PriSMBRole = "demo" | "admin";
 
-const CREDENTIALS: Record<string, { password: string; role: PriSMBRole }> = {
-  demo: { password: "Demo.2026", role: "demo" },
-  admin: { password: "Admin.2026.PriSMB", role: "admin" },
-};
+function getCredentials(): Record<string, { password: string; role: PriSMBRole }> {
+  return {
+    demo: { password: process.env.PRISMB_DEMO_PASSWORD ?? "Demo.2026", role: "demo" },
+    admin: { password: process.env.PRISMB_ADMIN_PASSWORD ?? "Admin.2026.PriSMB", role: "admin" },
+  };
+}
 
 export function validateCredentials(login: string, password: string): PriSMBRole | null {
-  const entry = CREDENTIALS[login];
+  const entry = getCredentials()[login];
   if (!entry) return null;
   if (entry.password !== password) return null;
   return entry.role;
