@@ -1,6 +1,6 @@
-# Contributing to PriSMB Dashboard
+# Contributing to PriSME Dashboard
 
-Thanks for showing interest in improving **PriSMB Dashboard** (repo: `next-shadcn-admin-dashboard`).  
+Thanks for showing interest in improving **PriSME Dashboard** (repo: `next-shadcn-admin-dashboard`).  
 This guide will help you set up your environment and understand how to contribute.
 
 ---

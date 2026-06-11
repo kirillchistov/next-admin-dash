@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { Send, Bot, User, Database } from "lucide-react";
+import { Bot, Database, Send, User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -51,7 +51,7 @@ const RESPONSE_RULES: ResponseRule[] = [
 ];
 const FALLBACK_RESPONSE = {
   text: "Я анализирую данные вашей компании и готов помочь с вопросами по рекламе. Попробуйте спросить:\n• Почему упали продажи?\n• Как снизить стоимость клиента?\n• Какой канал самый эффективный?",
-  source: "PriSMB AI",
+  source: "PriSME AI",
 };
 
 function getResponse(text: string): { text: string; source: string } {
@@ -72,7 +72,7 @@ export default function AdvisorPage() {
       id: "msg-0",
       role: "assistant",
       text: "Привет! Я ваш ИИшник - маркетолог. У меня есть данные Атлант-Оптики за последние 30 дней и помогу разобраться в ситуации. Спросите меня о продажах, рекламных каналах или конкурентах.",
-      source: "PriSMB AI",
+      source: "PriSME AI",
       timestamp: new Date(),
     },
   ]);
@@ -80,9 +80,11 @@ export default function AdvisorPage() {
   const [isTyping, setIsTyping] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  const msgCount = messages.length;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally scroll on count/typing changes
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isTyping]);
+  }, [msgCount, isTyping]);
 
   function sendMessage(text: string) {
     if (!text.trim()) return;
@@ -181,6 +183,7 @@ export default function AdvisorPage() {
         {PRESET_QUESTIONS.map((q) => (
           <button
             key={q}
+            type="button"
             onClick={() => sendMessage(q)}
             className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs text-blue-700 transition-colors hover:bg-blue-100"
           >
