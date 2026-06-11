@@ -5,7 +5,7 @@
  * It extracts `label:`, `value:`, and primary color definitions (`--primary`) for both light and dark modes.
  * These primary colors are used to visually represent each theme in the UI (e.g., colored dots or theme previews).
  * Default theme colors are fetched from /app/globals.css.
- * All extracted metadata is injected into a marked section of the /types/preferences/theme.ts file.
+ * All extracted metadata is injected into a marked section of the /lib/preferences/theme.ts file.
  *
  * Usage:
  * - During local development, run manually after adding any new theme preset:
@@ -14,10 +14,10 @@
  * - This generation step is currently automated using a Husky pre-push hook.
  * - You may optionally integrate it directly into a build step if preferred.
  */
-import fs from "fs";
-import path from "path";
 
-import prettier from "prettier";
+import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
 
 const presetDir = path.resolve(__dirname, "../styles/presets");
 
@@ -26,7 +26,7 @@ if (!fs.existsSync(presetDir)) {
   process.exit(1);
 }
 
-const outputPath = path.resolve(__dirname, "../types/preferences/theme.ts");
+const outputPath = path.resolve(__dirname, "../lib/preferences/theme.ts");
 
 const files = fs.readdirSync(presetDir).filter((file) => file.endsWith(".css"));
 
@@ -34,10 +34,8 @@ if (files.length === 0) {
   console.warn("⚠️ No preset CSS files found. Only default preset will be included.");
 }
 
-// eslint-disable-next-line complexity
 const presets = files.map((file) => {
   const filePath = path.join(presetDir, file);
-  // eslint-disable-next-line security/detect-non-literal-fs-filename
   const content = fs.readFileSync(filePath, "utf8");
 
   const labelMatch = content.match(/label:\s*(.+)/);
@@ -109,8 +107,12 @@ const updated = fileContent.replace(
   generatedBlock,
 );
 
-async function main() {
-  const formatted = await prettier.format(updated, { parser: "typescript" });
+function main() {
+  const biomeBin = require.resolve("@biomejs/biome/bin/biome");
+  const formatted = execFileSync(process.execPath, [biomeBin, "format", "--stdin-file-path", outputPath], {
+    input: updated,
+    encoding: "utf8",
+  });
 
   if (formatted === fileContent) {
     console.log("ℹ️  No changes in theme.ts");
@@ -121,7 +123,9 @@ async function main() {
   console.log("✅ theme.ts updated with new theme presets");
 }
 
-main().catch((err) => {
+try {
+  main();
+} catch (err) {
   console.error("❌ Unexpected error while generating theme presets:", err);
   process.exit(1);
-});
+}

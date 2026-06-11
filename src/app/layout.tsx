@@ -1,39 +1,54 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { APP_CONFIG } from "@/config/app-config";
-import { getPreference } from "@/server/server-actions";
+import { fontVars } from "@/lib/fonts/registry";
+import { PREFERENCE_DEFAULTS } from "@/lib/preferences/preferences-config";
+import { ThemeBootScript } from "@/scripts/theme-boot";
 import { PreferencesStoreProvider } from "@/stores/preferences/preferences-provider";
-import { THEME_MODE_VALUES, THEME_PRESET_VALUES, type ThemePreset, type ThemeMode } from "@/types/preferences/theme";
 
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: APP_CONFIG.meta.title,
   description: APP_CONFIG.meta.description,
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const themeMode = await getPreference<ThemeMode>("theme_mode", THEME_MODE_VALUES, "light");
-  const themePreset = await getPreference<ThemePreset>("theme_preset", THEME_PRESET_VALUES, "default");
-
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const { theme_mode, theme_preset, content_layout, navbar_style, sidebar_variant, sidebar_collapsible, font } =
+    PREFERENCE_DEFAULTS;
   return (
     <html
       lang="en"
-      className={themeMode === "dark" ? "dark" : ""}
-      data-theme-preset={themePreset}
+      data-theme-mode={theme_mode}
+      data-theme-preset={theme_preset}
+      data-content-layout={content_layout}
+      data-navbar-style={navbar_style}
+      data-sidebar-variant={sidebar_variant}
+      data-sidebar-collapsible={sidebar_collapsible}
+      data-font={font}
       suppressHydrationWarning
     >
-      <body className={`${inter.className} min-h-screen antialiased`}>
-        <PreferencesStoreProvider themeMode={themeMode} themePreset={themePreset}>
-          {children}
-          <Toaster />
-        </PreferencesStoreProvider>
+      <head>
+        {/* Applies theme and layout preferences on load to avoid flicker and unnecessary server rerenders. */}
+        <ThemeBootScript />
+      </head>
+      <body className={`${fontVars} min-h-screen antialiased`}>
+        <TooltipProvider>
+          <PreferencesStoreProvider
+            themeMode={theme_mode}
+            themePreset={theme_preset}
+            contentLayout={content_layout}
+            navbarStyle={navbar_style}
+            font={font}
+          >
+            {children}
+            <Toaster />
+          </PreferencesStoreProvider>
+        </TooltipProvider>
       </body>
     </html>
   );

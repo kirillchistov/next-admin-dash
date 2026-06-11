@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { PlusCircleIcon, MailIcon, ChevronRight } from "lucide-react";
+import { ChevronRight, MailIcon, PlusCircleIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -25,7 +25,7 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { type NavGroup, type NavMainItem } from "@/navigation/sidebar/sidebar-items";
+import type { NavGroup, NavMainItem } from "@/navigation/sidebar/sidebar-items";
 
 interface NavMainProps {
   readonly items: readonly NavGroup[];
@@ -66,7 +66,7 @@ const NavItemExpanded = ({
               isActive={isActive(item.url)}
               tooltip={item.title}
             >
-              <Link href={item.url} target={item.newTab ? "_blank" : undefined}>
+              <Link prefetch={false} href={item.url} target={item.newTab ? "_blank" : undefined}>
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
                 {item.comingSoon && <IsComingSoon />}
@@ -80,7 +80,7 @@ const NavItemExpanded = ({
               {item.subItems.map((subItem) => (
                 <SidebarMenuSubItem key={subItem.title}>
                   <SidebarMenuSubButton aria-disabled={subItem.comingSoon} isActive={isActive(subItem.url)} asChild>
-                    <Link href={subItem.url} target={subItem.newTab ? "_blank" : undefined}>
+                    <Link prefetch={false} href={subItem.url} target={subItem.newTab ? "_blank" : undefined}>
                       {subItem.icon && <subItem.icon />}
                       <span>{subItem.title}</span>
                       {subItem.comingSoon && <IsComingSoon />}
@@ -127,7 +127,7 @@ const NavItemCollapsed = ({
                 aria-disabled={subItem.comingSoon}
                 isActive={isActive(subItem.url)}
               >
-                <Link href={subItem.url} target={subItem.newTab ? "_blank" : undefined}>
+                <Link prefetch={false} href={subItem.url} target={subItem.newTab ? "_blank" : undefined}>
                   {subItem.icon && <subItem.icon className="[&>svg]:text-sidebar-foreground" />}
                   <span>{subItem.title}</span>
                   {subItem.comingSoon && <IsComingSoon />}
@@ -164,7 +164,7 @@ export function NavMain({ items }: NavMainProps) {
             <SidebarMenuItem className="flex items-center gap-2">
               <SidebarMenuButton
                 tooltip="Quick Create"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
+                className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
               >
                 <PlusCircleIcon />
                 <span>Quick Create</span>
@@ -198,7 +198,7 @@ export function NavMain({ items }: NavMainProps) {
                           tooltip={item.title}
                           isActive={isItemActive(item.url)}
                         >
-                          <Link href={item.url} target={item.newTab ? "_blank" : undefined}>
+                          <Link prefetch={false} href={item.url} target={item.newTab ? "_blank" : undefined}>
                             {item.icon && <item.icon />}
                             <span>{item.title}</span>
                           </Link>
