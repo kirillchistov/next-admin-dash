@@ -1,10 +1,15 @@
-import { Building2, Target, BarChart2, Check, Zap } from "lucide-react";
+import { cookies } from "next/headers";
 
+import { BarChart2, Building2, Check, Target, Zap } from "lucide-react";
+
+import type { MetrikaCookie } from "@/app/api/prismb/metrika/connect/route";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { companyProfile } from "@/data/prismb";
+
+import { MetrikaConnect } from "./_components/metrika-connect";
 
 const PLANS = [
   {
@@ -67,7 +72,10 @@ const PLANS = [
   },
 ];
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+  const cookieStore = await cookies();
+  const metrikaRaw = cookieStore.get("prismb_metrika")?.value;
+  const metrika: MetrikaCookie | null = metrikaRaw ? (JSON.parse(metrikaRaw) as MetrikaCookie) : null;
   const { name, industry, size, revenue, monthlyAdBudget, primaryGoal, targetCPA, avgOrderValue } = companyProfile;
 
   return (
@@ -216,6 +224,20 @@ export default function ProfilePage() {
         <p className="mt-3 text-center text-xs text-slate-400">
           Независимый советник — мы не аффилированы ни с одной рекламной платформой
         </p>
+      </div>
+
+      {/* Integrations */}
+      <div>
+        <h2 className="mb-4 text-lg font-semibold text-slate-800">Интеграции</h2>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Источники данных</CardTitle>
+            <CardDescription>Подключите реальные данные — дашборд обновится автоматически</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <MetrikaConnect connected={!!metrika} counterName={metrika?.counterName} />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

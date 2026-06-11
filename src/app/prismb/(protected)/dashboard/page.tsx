@@ -1,7 +1,9 @@
 import { cookies } from "next/headers";
 
+import type { MetrikaCookie } from "@/app/api/prismb/metrika/connect/route";
 import type { OnboardingCookie } from "@/app/api/prismb/save-onboarding/route";
 import { getClientData } from "@/data/prismb";
+import { fetchMetrikaTraffic } from "@/lib/prismb-metrika";
 
 import { AlertsPanel } from "./_components/alerts-panel";
 import { ExportButton } from "./_components/export-button";
@@ -29,13 +31,26 @@ export default async function PriSMBDashboardPage() {
         }
       : data.companyProfile;
 
-  const { last30DaysMetrics, dailyTrafficData, channelBreakdown, recommendations } = data;
+  const metrikaRaw = cookieStore.get("prismb_metrika")?.value;
+  const metrika: MetrikaCookie | null = metrikaRaw ? (JSON.parse(metrikaRaw) as MetrikaCookie) : null;
+  const liveTraffic = metrika ? await fetchMetrikaTraffic(metrika.token, metrika.counterId) : null;
+
+  const { last30DaysMetrics, channelBreakdown, recommendations } = data;
+  const dailyTrafficData = liveTraffic ?? data.dailyTrafficData;
 
   return (
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">{companyProfile.name}</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-slate-900">{companyProfile.name}</h1>
+            {liveTraffic && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                Метрика
+              </span>
+            )}
+          </div>
           <p className="mt-1 text-sm text-slate-500">Цель: {companyProfile.primaryGoal}</p>
         </div>
         <ExportButton
