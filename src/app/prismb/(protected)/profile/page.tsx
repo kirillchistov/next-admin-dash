@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 
 import { BarChart2, Building2, Check, Target, Zap } from "lucide-react";
 
+import type { ImportedChannelsCookie } from "@/app/api/prismb/import-csv/route";
 import type { MetrikaCookie } from "@/app/api/prismb/metrika/connect/route";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { companyProfile } from "@/data/prismb";
 
+import { CsvImport } from "./_components/csv-import";
 import { MetrikaConnect } from "./_components/metrika-connect";
 
 const PLANS = [
@@ -76,6 +78,10 @@ export default async function ProfilePage() {
   const cookieStore = await cookies();
   const metrikaRaw = cookieStore.get("prismb_metrika")?.value;
   const metrika: MetrikaCookie | null = metrikaRaw ? (JSON.parse(metrikaRaw) as MetrikaCookie) : null;
+  const importedRaw = cookieStore.get("prismb_imported_channels")?.value;
+  const imported: ImportedChannelsCookie | null = importedRaw
+    ? (JSON.parse(importedRaw) as ImportedChannelsCookie)
+    : null;
   const { name, industry, size, revenue, monthlyAdBudget, primaryGoal, targetCPA, avgOrderValue } = companyProfile;
 
   return (
@@ -234,8 +240,13 @@ export default async function ProfilePage() {
             <CardTitle className="text-base">Источники данных</CardTitle>
             <CardDescription>Подключите реальные данные — дашборд обновится автоматически</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-3">
             <MetrikaConnect connected={!!metrika} counterName={metrika?.counterName} />
+            <CsvImport
+              imported={!!imported}
+              importedAt={imported?.importedAt}
+              channelCount={imported?.channels.length}
+            />
           </CardContent>
         </Card>
       </div>

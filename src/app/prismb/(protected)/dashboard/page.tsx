@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 
+import type { ImportedChannelsCookie } from "@/app/api/prismb/import-csv/route";
 import type { MetrikaCookie } from "@/app/api/prismb/metrika/connect/route";
 import type { OnboardingCookie } from "@/app/api/prismb/save-onboarding/route";
 import { getClientData } from "@/data/prismb";
@@ -35,8 +36,16 @@ export default async function PriSMBDashboardPage() {
   const metrika: MetrikaCookie | null = metrikaRaw ? (JSON.parse(metrikaRaw) as MetrikaCookie) : null;
   const liveTraffic = metrika ? await fetchMetrikaTraffic(metrika.token, metrika.counterId) : null;
 
-  const { last30DaysMetrics, channelBreakdown, recommendations } = data;
+  const importedRaw = cookieStore.get("prismb_imported_channels")?.value;
+  const imported: ImportedChannelsCookie | null = importedRaw
+    ? (JSON.parse(importedRaw) as ImportedChannelsCookie)
+    : null;
+
+  const { last30DaysMetrics, recommendations } = data;
   const dailyTrafficData = liveTraffic ?? data.dailyTrafficData;
+  const channelBreakdown = imported?.channels ?? data.channelBreakdown;
+
+  const dataSources = [liveTraffic && "Метрика", imported && "Директ CSV"].filter(Boolean) as string[];
 
   return (
     <div className="space-y-6">
@@ -44,12 +53,15 @@ export default async function PriSMBDashboardPage() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold text-slate-900">{companyProfile.name}</h1>
-            {liveTraffic && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+            {dataSources.map((src) => (
+              <span
+                key={src}
+                className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700"
+              >
                 <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                Метрика
+                {src}
               </span>
-            )}
+            ))}
           </div>
           <p className="mt-1 text-sm text-slate-500">Цель: {companyProfile.primaryGoal}</p>
         </div>
