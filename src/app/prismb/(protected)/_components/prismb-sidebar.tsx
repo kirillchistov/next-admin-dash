@@ -6,19 +6,19 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import {
-  LayoutDashboard,
-  FileText,
-  MessageSquare,
-  CalendarDays,
-  Search,
-  PenSquare,
   Building2,
-  CreditCard,
-  Users,
-  TrendingUp,
-  LogOut,
-  ChevronDown,
+  CalendarDays,
   Check,
+  ChevronDown,
+  CreditCard,
+  FileText,
+  LayoutDashboard,
+  LogOut,
+  MessageSquare,
+  PenSquare,
+  Search,
+  TrendingUp,
+  Users,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -133,7 +133,7 @@ export function PriSMBSidebar({ role, activeClientName, activeClientId, clients 
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
             <TrendingUp className="h-4 w-4 text-white" />
           </div>
-          <span className="text-lg font-bold text-slate-900">PriSMB</span>
+          <span className="text-lg font-bold text-slate-900">PriSME</span>
         </div>
 
         {/* Company switcher — interactive for admin, static for demo */}
@@ -141,6 +141,7 @@ export function PriSMBSidebar({ role, activeClientName, activeClientId, clients 
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <button
+                type="button"
                 className={cn(
                   "mx-2 mb-2 flex w-[calc(100%-16px)] items-center justify-between rounded-lg bg-slate-100 px-3 py-2 text-sm",
                   "cursor-pointer transition-colors hover:bg-slate-200",
@@ -161,6 +162,7 @@ export function PriSMBSidebar({ role, activeClientName, activeClientId, clients 
               {clients.map((c) => (
                 <button
                   key={c.id}
+                  type="button"
                   onClick={() => handleSwitch(c.id)}
                   disabled={switching}
                   className={cn(
@@ -216,7 +218,12 @@ export function PriSMBSidebar({ role, activeClientName, activeClientId, clients 
               <div className="font-medium text-slate-700">{role === "admin" ? "Администратор" : "Демо-аккаунт"}</div>
             </div>
           </div>
-          <button onClick={handleLogout} className="text-slate-400 transition-colors hover:text-red-500" title="Выйти">
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="text-slate-400 transition-colors hover:text-red-500"
+            title="Выйти"
+          >
             <LogOut className="h-4 w-4" />
           </button>
         </div>

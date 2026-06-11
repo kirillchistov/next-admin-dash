@@ -63,7 +63,7 @@ export default function PriSMBLoginPage() {
           <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600">
             <TrendingUp className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-slate-900">PriSMB</h1>
+          <h1 className="text-3xl font-bold text-slate-900">PriSME</h1>
           <p className="mt-2 text-slate-500">Умный маркетинг для бизнеса без маркетологов</p>
         </div>
 
@@ -110,7 +110,7 @@ export default function PriSMBLoginPage() {
                   )}
                 />
 
-                {error && <div className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">{error}</div>}
+                {error && <div className="rounded-md bg-red-50 px-3 py-2 text-red-600 text-sm">{error}</div>}
 
                 <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700" disabled={isLoading}>
                   {isLoading ? "Входим..." : "Войти"}
