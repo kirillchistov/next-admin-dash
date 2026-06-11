@@ -34,7 +34,7 @@ src
 └── types             # TypeScript definitions
 ```
 
-If you’d like a more detailed example of this setup, check out the [Next Colocation Template](https://github.com/arhamkhnz/next-colocation-template), where the full structure is explained with examples.
+If you’d like a more detailed example of this setup, check out the [Next Colocation Template](https://github.com/cyrilchristoff/next-colocation-template), where the full structure is explained with examples.
 
 ---
 
@@ -44,7 +44,7 @@ If you’d like a more detailed example of this setup, check out the [Next Coloc
 
 1. Fork the Repository
    
-   Click [here](https://github.com/arhamkhnz/next-shadcn-admin-dashboard/fork) to fork the repository.
+   Click [here](https://github.com/cyrilchristoff/next-shadcn-admin-dashboard/fork) to fork the repository.
 
 2. Clone the Repository  
    ```bash
@@ -118,7 +118,7 @@ If you’d like a more detailed example of this setup, check out the [Next Coloc
 
 ## Questions & Support
 
-- Report bugs, suggestions, or issues via [GitHub Issues](https://github.com/arhamkhnz/next-shadcn-admin-dashboard/issues)
+- Report bugs, suggestions, or issues via [GitHub Issues](https://github.com/cyrilchristoff/next-shadcn-admin-dashboard/issues)
 
 ---
 
