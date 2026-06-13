@@ -1,5 +1,3 @@
-import { cookies } from "next/headers";
-
 import { BarChart2, Building2, Check, Target, Zap } from "lucide-react";
 
 import type { ImportedChannelsCookie } from "@/app/api/prismb/import-csv/route";
@@ -9,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { companyProfile } from "@/data/prismb";
+import { safeCookies } from "@/lib/prismb-cookies";
 
 import { CsvImport } from "./_components/csv-import";
 import { MetrikaConnect } from "./_components/metrika-connect";
@@ -75,10 +74,10 @@ const PLANS = [
 ];
 
 export default async function ProfilePage() {
-  const cookieStore = await cookies();
-  const metrikaRaw = cookieStore.get("prismb_metrika")?.value;
+  const cookieStore = await safeCookies();
+  const metrikaRaw = cookieStore?.get("prismb_metrika")?.value;
   const metrika: MetrikaCookie | null = metrikaRaw ? (JSON.parse(metrikaRaw) as MetrikaCookie) : null;
-  const importedRaw = cookieStore.get("prismb_imported_channels")?.value;
+  const importedRaw = cookieStore?.get("prismb_imported_channels")?.value;
   const imported: ImportedChannelsCookie | null = importedRaw
     ? (JSON.parse(importedRaw) as ImportedChannelsCookie)
     : null;

@@ -1,4 +1,8 @@
-"use client";
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [{ "not-found": ["_"] }];
+}
 
 export default function DashboardNotFound() {
   return (

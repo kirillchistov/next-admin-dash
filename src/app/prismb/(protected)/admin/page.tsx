@@ -1,12 +1,12 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { Users, TrendingUp } from "lucide-react";
+import { TrendingUp, Users } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { adminClients } from "@/data/prismb";
+import { safeCookies } from "@/lib/prismb-cookies";
 
 import { SwitchClientButton } from "./_components/switch-client-button";
 
@@ -29,9 +29,9 @@ const PLAN_LABELS: Record<string, string> = {
 };
 
 export default async function AdminPage() {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("prismb_session")?.value;
-  if (session !== "admin") redirect("/prismb/dashboard");
+  const cookieStore = await safeCookies();
+  const session = cookieStore?.get("prismb_session")?.value;
+  if (session !== "admin" && cookieStore !== null) redirect("/prismb/dashboard");
 
   const totalActive = adminClients.filter((c) => c.status === "active").length;
   const totalBudget = adminClients.filter((c) => c.status === "active").reduce((s, c) => s + c.monthlyBudget, 0);
@@ -40,8 +40,8 @@ export default async function AdminPage() {
     <div className="max-w-5xl space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Клиенты</h1>
-          <p className="mt-1 text-sm text-slate-500">Управление клиентскими аккаунтами</p>
+          <h1 className="font-bold text-2xl text-slate-900">Клиенты</h1>
+          <p className="mt-1 text-slate-500 text-sm">Управление клиентскими аккаунтами</p>
         </div>
         <Button size="sm">Добавить клиента</Button>
       </div>
@@ -52,14 +52,14 @@ export default async function AdminPage() {
           { label: "Активных", value: totalActive, color: "text-green-600" },
           {
             label: "Суммарный бюджет/мес.",
-            value: totalBudget.toLocaleString("ru-RU") + " ₽",
+            value: `${totalBudget.toLocaleString("ru-RU")} ₽`,
             color: "text-slate-900",
           },
         ].map((s) => (
           <Card key={s.label}>
             <CardContent className="pt-5 text-center">
-              <div className={`text-3xl font-bold ${s.color}`}>{s.value}</div>
-              <div className="mt-1 text-xs text-slate-500">{s.label}</div>
+              <div className={`font-bold text-3xl ${s.color}`}>{s.value}</div>
+              <div className="mt-1 text-slate-500 text-xs">{s.label}</div>
             </CardContent>
           </Card>
         ))}
@@ -79,7 +79,7 @@ export default async function AdminPage() {
               <thead>
                 <tr className="border-b text-left">
                   {["Компания", "Отрасль", "Статус", "Тариф", "Бюджет", "Лиды", "С даты", ""].map((h) => (
-                    <th key={h} className="pr-4 pb-3 text-xs font-semibold text-slate-500 uppercase">
+                    <th key={h} className="pr-4 pb-3 font-semibold text-slate-500 text-xs uppercase">
                       {h}
                     </th>
                   ))}
@@ -90,18 +90,18 @@ export default async function AdminPage() {
                   <tr key={c.id} className="transition-colors hover:bg-slate-50">
                     <td className="py-3 pr-4">
                       <div className="font-medium text-slate-800">{c.name}</div>
-                      {c.churnedAgo && <div className="text-xs text-red-400">{c.churnedAgo}</div>}
+                      {c.churnedAgo && <div className="text-red-400 text-xs">{c.churnedAgo}</div>}
                       {c.trialDaysLeft !== undefined && (
-                        <div className="text-xs text-blue-500">{c.trialDaysLeft} дней осталось</div>
+                        <div className="text-blue-500 text-xs">{c.trialDaysLeft} дней осталось</div>
                       )}
                     </td>
                     <td className="py-3 pr-4 text-slate-600">{c.industry}</td>
                     <td className="py-3 pr-4">
                       <StatusBadge status={c.status} />
                     </td>
-                    <td className="py-3 pr-4 text-xs text-slate-500">{PLAN_LABELS[c.plan] ?? c.plan}</td>
+                    <td className="py-3 pr-4 text-slate-500 text-xs">{PLAN_LABELS[c.plan] ?? c.plan}</td>
                     <td className="py-3 pr-4 text-right font-mono text-slate-700">
-                      {c.monthlyBudget > 0 ? c.monthlyBudget.toLocaleString("ru-RU") + " ₽" : "—"}
+                      {c.monthlyBudget > 0 ? `${c.monthlyBudget.toLocaleString("ru-RU")} ₽` : "—"}
                     </td>
                     <td className="py-3 pr-4 text-right">
                       {c.leads > 0 ? (
@@ -113,7 +113,7 @@ export default async function AdminPage() {
                         <span className="text-slate-300">—</span>
                       )}
                     </td>
-                    <td className="py-3 pr-4 text-xs text-slate-400">{c.since}</td>
+                    <td className="py-3 pr-4 text-slate-400 text-xs">{c.since}</td>
                     <td className="py-3">
                       <SwitchClientButton clientId={c.id} />
                     </td>

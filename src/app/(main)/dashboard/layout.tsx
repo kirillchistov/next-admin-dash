@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import { cookies } from "next/headers";
 import Link from "next/link";
 
 import { siGithub } from "simple-icons";
@@ -12,8 +11,8 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { users } from "@/data/users";
 import { SIDEBAR_COLLAPSIBLE_VALUES, SIDEBAR_VARIANT_VALUES } from "@/lib/preferences/layout";
+import { safeCookies } from "@/lib/prismb-cookies";
 import { cn } from "@/lib/utils";
-import { getPreference } from "@/server/server-actions";
 
 import { AccountSwitcher } from "./_components/sidebar/account-switcher";
 import { LayoutControls } from "./_components/sidebar/layout-controls";
@@ -21,12 +20,16 @@ import { SearchDialog } from "./_components/sidebar/search-dialog";
 import { ThemeSwitcher } from "./_components/sidebar/theme-switcher";
 
 export default async function Layout({ children }: Readonly<{ children: ReactNode }>) {
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar_state")?.value !== "false";
-  const [variant, collapsible] = await Promise.all([
-    getPreference("sidebar_variant", SIDEBAR_VARIANT_VALUES, "inset"),
-    getPreference("sidebar_collapsible", SIDEBAR_COLLAPSIBLE_VALUES, "icon"),
-  ]);
+  const cookieStore = await safeCookies();
+  const defaultOpen = cookieStore?.get("sidebar_state")?.value !== "false";
+  const rawVariant = cookieStore?.get("sidebar_variant")?.value ?? "inset";
+  const rawCollapsible = cookieStore?.get("sidebar_collapsible")?.value ?? "icon";
+  const variant = (SIDEBAR_VARIANT_VALUES as readonly string[]).includes(rawVariant)
+    ? (rawVariant as (typeof SIDEBAR_VARIANT_VALUES)[number])
+    : "inset";
+  const collapsible = (SIDEBAR_COLLAPSIBLE_VALUES as readonly string[]).includes(rawCollapsible)
+    ? (rawCollapsible as (typeof SIDEBAR_COLLAPSIBLE_VALUES)[number])
+    : "icon";
 
   return (
     <SidebarProvider

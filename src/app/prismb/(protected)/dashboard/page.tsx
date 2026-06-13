@@ -1,9 +1,8 @@
-import { cookies } from "next/headers";
-
 import type { ImportedChannelsCookie } from "@/app/api/prismb/import-csv/route";
 import type { MetrikaCookie } from "@/app/api/prismb/metrika/connect/route";
 import type { OnboardingCookie } from "@/app/api/prismb/save-onboarding/route";
 import { getClientData } from "@/data/prismb";
+import { safeCookies } from "@/lib/prismb-cookies";
 import { fetchMetrikaTraffic } from "@/lib/prismb-metrika";
 
 import { AlertsPanel } from "./_components/alerts-panel";
@@ -13,11 +12,11 @@ import { Recommendations } from "./_components/recommendations";
 import { TrafficChart } from "./_components/traffic-chart";
 
 export default async function PriSMBDashboardPage() {
-  const cookieStore = await cookies();
-  const clientId = cookieStore.get("prismb_client_id")?.value;
+  const cookieStore = await safeCookies();
+  const clientId = cookieStore?.get("prismb_client_id")?.value;
   const data = getClientData(clientId);
 
-  const onboardingRaw = cookieStore.get("prismb_onboarding")?.value;
+  const onboardingRaw = cookieStore?.get("prismb_onboarding")?.value;
   const onboarding: OnboardingCookie | null = onboardingRaw ? (JSON.parse(onboardingRaw) as OnboardingCookie) : null;
 
   const companyProfile =
@@ -32,11 +31,11 @@ export default async function PriSMBDashboardPage() {
         }
       : data.companyProfile;
 
-  const metrikaRaw = cookieStore.get("prismb_metrika")?.value;
+  const metrikaRaw = cookieStore?.get("prismb_metrika")?.value;
   const metrika: MetrikaCookie | null = metrikaRaw ? (JSON.parse(metrikaRaw) as MetrikaCookie) : null;
   const liveTraffic = metrika ? await fetchMetrikaTraffic(metrika.token, metrika.counterId) : null;
 
-  const importedRaw = cookieStore.get("prismb_imported_channels")?.value;
+  const importedRaw = cookieStore?.get("prismb_imported_channels")?.value;
   const imported: ImportedChannelsCookie | null = importedRaw
     ? (JSON.parse(importedRaw) as ImportedChannelsCookie)
     : null;
@@ -52,18 +51,18 @@ export default async function PriSMBDashboardPage() {
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-slate-900">{companyProfile.name}</h1>
+            <h1 className="font-bold text-2xl text-slate-900">{companyProfile.name}</h1>
             {dataSources.map((src) => (
               <span
                 key={src}
-                className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700"
+                className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-700 text-xs"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                 {src}
               </span>
             ))}
           </div>
-          <p className="mt-1 text-sm text-slate-500">Цель: {companyProfile.primaryGoal}</p>
+          <p className="mt-1 text-slate-500 text-sm">Цель: {companyProfile.primaryGoal}</p>
         </div>
         <ExportButton
           companyName={companyProfile.name}

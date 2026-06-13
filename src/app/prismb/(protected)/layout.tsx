@@ -1,26 +1,26 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { Separator } from "@/components/ui/separator";
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { adminClients } from "@/data/prismb";
 import type { PriSMBRole } from "@/lib/prismb-auth";
+import { safeCookies } from "@/lib/prismb-cookies";
 
 import { PriSMBSidebar } from "./_components/prismb-sidebar";
 
 export default async function PriSMBProtectedLayout({ children }: { children: ReactNode }) {
-  const cookieStore = await cookies();
-  const sessionVal = cookieStore.get("prismb_session")?.value;
+  const cookieStore = await safeCookies();
+  const sessionVal = cookieStore?.get("prismb_session")?.value;
   if (!sessionVal || (sessionVal !== "demo" && sessionVal !== "admin")) {
-    redirect("/prismb/login");
+    if (cookieStore !== null) redirect("/prismb/login");
   }
-  const session = sessionVal as PriSMBRole;
+  const session = (sessionVal ?? "demo") as PriSMBRole;
 
-  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
+  const defaultOpen = cookieStore?.get("sidebar_state")?.value === "true";
 
-  const clientIdCookie = cookieStore.get("prismb_client_id")?.value;
+  const clientIdCookie = cookieStore?.get("prismb_client_id")?.value;
   const activeClientId = clientIdCookie ? Number(clientIdCookie) : 1;
   const activeClient = adminClients.find((c) => c.id === activeClientId) ?? adminClients[0];
 
