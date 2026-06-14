@@ -63,7 +63,10 @@ export default function PriSMBLoginPage() {
           <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600">
             <TrendingUp className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-slate-900">PriSME</h1>
+          {/* biome-ignore lint: suppressHydrationWarning needed due to macOS text replacement */}
+          <h1 className="text-3xl font-bold text-slate-900" suppressHydrationWarning>
+            PriSME
+          </h1>
           <p className="mt-2 text-slate-500">Умный маркетинг для бизнеса без маркетологов</p>
         </div>
 

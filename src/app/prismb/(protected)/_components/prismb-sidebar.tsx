@@ -133,7 +133,10 @@ export function PriSMBSidebar({ role, activeClientName, activeClientId, clients 
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
             <TrendingUp className="h-4 w-4 text-white" />
           </div>
-          <span className="text-lg font-bold text-slate-900">PriSME</span>
+          {/* biome-ignore lint: suppressHydrationWarning needed due to macOS text replacement */}
+          <span className="text-lg font-bold text-slate-900" suppressHydrationWarning>
+            PriSME
+          </span>
         </div>
 
         {/* Company switcher — interactive for admin, static for demo */}
