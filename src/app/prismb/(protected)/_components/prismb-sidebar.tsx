@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import {
+  Activity,
   Building2,
   CalendarDays,
   Check,
@@ -17,7 +18,9 @@ import {
   MessageSquare,
   PenSquare,
   Search,
+  ShoppingBag,
   TrendingUp,
+  UserCheck,
   Users,
 } from "lucide-react";
 
@@ -49,6 +52,9 @@ interface NavItem {
 
 const analyticsNav: NavItem[] = [
   { href: "/prismb/dashboard", label: "Дашборд", icon: LayoutDashboard },
+  { href: "/prismb/sales", label: "Продажи", icon: ShoppingBag },
+  { href: "/prismb/leads", label: "Лиды", icon: UserCheck },
+  { href: "/prismb/analytics", label: "Трафик", icon: Activity },
   { href: "/prismb/report", label: "Недельный отчёт", icon: FileText },
 ];
 const toolsNav: NavItem[] = [
@@ -133,10 +139,7 @@ export function PriSMBSidebar({ role, activeClientName, activeClientId, clients 
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
             <TrendingUp className="h-4 w-4 text-white" />
           </div>
-          {/* biome-ignore lint: suppressHydrationWarning needed due to macOS text replacement */}
-          <span className="text-lg font-bold text-slate-900" suppressHydrationWarning>
-            PriSME
-          </span>
+          <span className="text-lg font-bold text-slate-900">PriSMB</span>
         </div>
 
         {/* Company switcher — interactive for admin, static for demo */}

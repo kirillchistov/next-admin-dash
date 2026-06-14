@@ -105,6 +105,17 @@ export const recommendations = [
   },
 ];
 
+export type TopPage = { path: string; title: string; views: number; leads: number; convRate: number };
+
+export const topPages: TopPage[] = [
+  { path: "/catalog/linzy", title: "Контактные линзы", views: 2840, leads: 18, convRate: 0.63 },
+  { path: "/catalog/opravy", title: "Оправы для очков", views: 2210, leads: 14, convRate: 0.63 },
+  { path: "/", title: "Главная страница", views: 1870, leads: 9, convRate: 0.48 },
+  { path: "/promo/leto-2025", title: "Акция: Лето-2025", views: 1240, leads: 11, convRate: 0.89 },
+  { path: "/solntsezash", title: "Солнцезащитные очки", views: 980, leads: 7, convRate: 0.71 },
+  { path: "/kontakty", title: "Контакты и адреса", views: 820, leads: 4, convRate: 0.49 },
+];
+
 export const hypotheses = [
   {
     id: 1,

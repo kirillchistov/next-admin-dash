@@ -1,7 +1,16 @@
 // PriSMB — per-client deterministic data generation
 
 import { adminClients, weeklyReportData } from "./admin-data";
-import { companyProfile, last30DaysMetrics, dailyTrafficData, channelBreakdown, recommendations } from "./mock-data";
+import { genLeads, type Lead, recentLeads } from "./lead-data";
+import {
+  channelBreakdown,
+  companyProfile,
+  dailyTrafficData,
+  last30DaysMetrics,
+  recommendations,
+  type TopPage,
+  topPages,
+} from "./mock-data";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 export type DailyPoint = { date: string; visits: number; leads: number };
@@ -27,6 +36,9 @@ export type Rec = {
 export type WeeklyReport = { days: DailyPoint[]; summary: string[]; actions: string[] };
 export type CompanyProfileType = typeof companyProfile;
 export type Last30DaysType = typeof last30DaysMetrics;
+export type { Lead, LeadStatus } from "./lead-data";
+export type { TopPage } from "./mock-data";
+
 export type ClientData = {
   companyProfile: CompanyProfileType;
   last30DaysMetrics: Last30DaysType;
@@ -34,6 +46,8 @@ export type ClientData = {
   channelBreakdown: ChannelItem[];
   recommendations: Rec[];
   weeklyReportData: WeeklyReport;
+  recentLeads: Lead[];
+  topPages: TopPage[] | null;
 };
 
 // ── Deterministic RNG ──────────────────────────────────────────────────────────
@@ -212,13 +226,15 @@ function genWeeklyReport(days: DailyPoint[], seed: number): WeeklyReport {
 // ── Main function ──────────────────────────────────────────────────────────────
 export function getClientData(rawId: number | string | undefined): ClientData {
   const clientId = Number(rawId) || 1;
-  const baseData = {
+  const baseData: ClientData = {
     companyProfile,
     last30DaysMetrics,
     dailyTrafficData,
     channelBreakdown,
     recommendations,
     weeklyReportData,
+    recentLeads,
+    topPages,
   };
 
   if (clientId === 1) return baseData;
@@ -288,5 +304,7 @@ export function getClientData(rawId: number | string | undefined): ClientData {
     channelBreakdown: channelBreakdownGenerated,
     recommendations: genRecommendations(s),
     weeklyReportData: genWeeklyReport(dailyTrafficGenerated.slice(-7), s),
+    recentLeads: genLeads(s, Math.min(10, leads), ["Яндекс.Директ", "VK Ads", "SEO"], avgOrder),
+    topPages: null,
   };
 }
