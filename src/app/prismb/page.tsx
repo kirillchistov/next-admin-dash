@@ -15,7 +15,7 @@ export default async function PriSMBRootPage() {
   return (
     <div className="min-h-screen bg-white">
       <nav className="flex items-center justify-between border-slate-100 border-b px-6 py-4">
-        <span className="font-bold text-lg text-slate-900">PriSME</span>
+        <span className="font-bold text-lg text-slate-900">PriSMB</span>
         <div className="flex items-center gap-3">
           {session ? (
             <a

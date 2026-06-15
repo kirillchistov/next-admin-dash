@@ -51,7 +51,7 @@ const RESPONSE_RULES: ResponseRule[] = [
 ];
 const FALLBACK_RESPONSE = {
   text: "Я анализирую данные вашей компании и готов помочь с вопросами по рекламе. Попробуйте спросить:\n• Почему упали продажи?\n• Как снизить стоимость клиента?\n• Какой канал самый эффективный?",
-  source: "PriSME AI",
+  source: "PriSMB AI",
 };
 
 function getResponse(text: string): { text: string; source: string } {
@@ -72,7 +72,7 @@ export default function AdvisorPage() {
       id: "msg-0",
       role: "assistant",
       text: "Привет! Я ваш ИИшник - маркетолог. У меня есть данные Атлант-Оптики за последние 30 дней и помогу разобраться в ситуации. Спросите меня о продажах, рекламных каналах или конкурентах.",
-      source: "PriSME AI",
+      source: "PriSMB AI",
       timestamp: new Date(),
     },
   ]);

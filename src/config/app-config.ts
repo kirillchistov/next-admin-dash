@@ -3,11 +3,11 @@ import packageJson from "../../package.json";
 const currentYear = new Date().getFullYear();
 
 export const APP_CONFIG = {
-  name: "PriSME Dashboard",
+  name: "PriSMB Dashboard",
   version: packageJson.version,
-  copyright: `© ${currentYear}, PriSME Dashboard.`,
+  copyright: `© ${currentYear}, PriSMB Dashboard.`,
   meta: {
-    title: "PriSME Dashboard - Ваш зам. по маркетингу",
-    description: "PriSME Dashboard - Маркетинговый эксперт для владельцев малого бизнеса.",
+    title: "PriSMB Dashboard - Ваш зам. по маркетингу",
+    description: "PriSMB Dashboard - Маркетинговый эксперт для владельцев малого бизнеса.",
   },
 };

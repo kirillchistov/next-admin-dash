@@ -69,7 +69,7 @@ const PROBLEMS = [
   },
   {
     q: "Нанять маркетолога — дорого",
-    a: "PriSME даёт экспертизу за фиксированную сумму без оклада и налогов.",
+    a: "PriSMB даёт экспертизу за фиксированную сумму без оклада и налогов.",
   },
 ];
 
@@ -102,7 +102,7 @@ export function HeroSection() {
           Управляйте рекламой без маркетолога в штате
         </h1>
         <p className="mt-4 text-lg text-slate-500">
-          PriSME следит за вашими каналами, считает ROI и говорит прямо — где деньги работают, а где сливаются впустую.
+          PriSMB следит за вашими каналами, считает ROI и говорит прямо — где деньги работают, а где сливаются впустую.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button asChild size="lg" className="px-8">
@@ -141,7 +141,7 @@ export function FeaturesSection() {
   return (
     <section className="bg-slate-50 px-4 py-16">
       <div className="mx-auto max-w-4xl">
-        <h2 className="mb-10 text-center text-2xl font-bold text-slate-900">Что умеет PriSME</h2>
+        <h2 className="mb-10 text-center text-2xl font-bold text-slate-900">Что умеет PriSMB</h2>
         <div className="grid gap-6 sm:grid-cols-3">
           {FEATURES.map((f) => (
             <div key={f.title} className="flex flex-col gap-3">
@@ -206,7 +206,7 @@ export function PricingSection() {
 export function FooterSection() {
   return (
     <footer className="border-t border-slate-100 px-4 py-8 text-center">
-      <p className="text-sm font-semibold text-slate-700">PriSME</p>
+      <p className="text-sm font-semibold text-slate-700">PriSMB</p>
       <p className="mt-1 text-xs text-slate-400">Маркетинговый советник для малого и среднего бизнеса</p>
       <div className="mt-3 flex justify-center gap-4 text-xs text-slate-400">
         <a href="/prismb/login" className="hover:text-slate-600">

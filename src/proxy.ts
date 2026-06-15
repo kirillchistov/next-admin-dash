@@ -1,14 +1,12 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Only handle /prismb/* routes
   if (!pathname.startsWith("/prismb")) {
     return NextResponse.next();
   }
 
-  // Public routes — login page and API auth/logout
   if (
     pathname === "/prismb/login" ||
     pathname.startsWith("/api/prismb/auth") ||
@@ -26,13 +24,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Admin-only route
   if (pathname.startsWith("/prismb/admin") && session !== "admin") {
     return NextResponse.redirect(new URL("/prismb/dashboard", request.url));
   }
 
   return NextResponse.next();
 }
+
+export default proxy;
 
 export const config = {
   matcher: ["/prismb/:path*"],

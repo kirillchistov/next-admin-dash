@@ -7,8 +7,9 @@ import { useRouter } from "next/navigation";
 import { CheckCircle2, FileSpreadsheet, Loader2, Trash2, Upload } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { parseDirectCsv } from "@/lib/prismb-csv";
+import { cn } from "@/lib/utils";
 
 interface Props {
   imported: boolean;
@@ -105,18 +106,9 @@ export function CsvImport({ imported, importedAt, channelCount }: Props) {
               <div className="text-sm font-medium text-slate-600">Перетащите CSV или нажмите</div>
               <div className="mt-0.5 text-xs text-slate-400">Экспорт из Яндекс.Директ → Статистика → CSV</div>
             </div>
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              className="gap-1.5"
-              onClick={(e) => {
-                e.stopPropagation();
-                inputRef.current?.click();
-              }}
-            >
+            <span className={cn(buttonVariants({ size: "sm", variant: "outline" }), "gap-1.5")}>
               <Upload className="h-3.5 w-3.5" /> Выбрать файл
-            </Button>
+            </span>
           </>
         )}
       </button>

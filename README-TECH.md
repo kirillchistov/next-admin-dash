@@ -1,9 +1,9 @@
 # SMB Marketing Admin MVP built with Next.js, TypeScript and Shadcn UI
 
-**PriSME Dashboard** - Includes several dashboards, authentication, customizable settings and more.
+**PriSMB Dashboard** - Includes several dashboards, authentication, customizable settings and more.
 
 
-> **View demo:** [PriSME Dashboard](https://kirillchistov.github.io/next-admin-dash/prismb/)
+> **View demo:** [PriSMB Dashboard](https://kirillchistov.github.io/next-admin-dash/prismb/)
 
 
 ## Features
