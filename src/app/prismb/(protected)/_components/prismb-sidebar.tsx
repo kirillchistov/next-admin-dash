@@ -40,6 +40,7 @@ import {
 } from "@/components/ui/sidebar";
 import type { adminClients } from "@/data/prismb";
 import type { PriSMBRole } from "@/lib/prismb-auth";
+import { isPriSMBStaticExport, prismbRoutes } from "@/lib/prismb-routes";
 import { cn } from "@/lib/utils";
 
 type Client = (typeof adminClients)[number];
@@ -108,8 +109,10 @@ export function PriSMBSidebar({ role, activeClientName, activeClientId, clients 
   const [switching, setSwitching] = useState(false);
 
   async function handleLogout() {
-    await fetch("/api/prismb/logout", { method: "POST" });
-    router.push("/prismb/login");
+    if (!isPriSMBStaticExport) {
+      await fetch(prismbRoutes.logout, { method: "POST" });
+    }
+    window.location.assign(prismbRoutes.login);
   }
 
   async function handleSwitch(clientId: number) {
@@ -118,14 +121,16 @@ export function PriSMBSidebar({ role, activeClientName, activeClientId, clients 
       return;
     }
     setSwitching(true);
-    await fetch("/api/prismb/switch-client", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ clientId }),
-    });
+    if (!isPriSMBStaticExport) {
+      await fetch(prismbRoutes.switchClient, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clientId }),
+      });
+    }
     setOpen(false);
     setSwitching(false);
-    router.push("/prismb/dashboard");
+    router.push(prismbRoutes.dashboard);
     router.refresh();
   }
 

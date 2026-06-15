@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { isPriSMBStaticExport, prismbRoutes } from "@/lib/prismb-routes";
 
 interface Props {
   connected: boolean;
@@ -26,7 +27,13 @@ export function MetrikaConnect({ connected, counterName }: Props) {
   async function handleConnect() {
     setLoading(true);
     setError(null);
-    const res = await fetch("/api/prismb/metrika/connect", {
+    if (isPriSMBStaticExport) {
+      setLoading(false);
+      setError("Подключение Метрики недоступно в статической демо-версии на GitHub Pages.");
+      return;
+    }
+
+    const res = await fetch(prismbRoutes.metrikaConnect, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token, counterId }),
@@ -41,7 +48,8 @@ export function MetrikaConnect({ connected, counterName }: Props) {
   }
 
   async function handleDisconnect() {
-    await fetch("/api/prismb/metrika/connect", { method: "DELETE" });
+    if (isPriSMBStaticExport) return;
+    await fetch(prismbRoutes.metrikaConnect, { method: "DELETE" });
     router.refresh();
   }
 

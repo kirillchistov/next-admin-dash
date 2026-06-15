@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { isPriSMBStaticExport, prismbRoutes } from "@/lib/prismb-routes";
 
 const loginSchema = z.object({
   login: z.string().min(1, "Введите логин"),
@@ -35,8 +36,14 @@ export default function PriSMBLoginPage() {
   async function onSubmit(values: LoginFormValues) {
     setIsLoading(true);
     setError(null);
+
+    if (isPriSMBStaticExport) {
+      window.location.assign(prismbRoutes.dashboard);
+      return;
+    }
+
     try {
-      const res = await fetch("/api/prismb/auth", {
+      const res = await fetch(prismbRoutes.auth, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -45,7 +52,7 @@ export default function PriSMBLoginPage() {
       if (!res.ok) {
         setError(data.error ?? "Ошибка входа");
       } else {
-        router.push("/prismb/dashboard");
+        router.push(prismbRoutes.dashboard);
       }
     } catch {
       setError("Ошибка сети. Попробуйте ещё раз.");

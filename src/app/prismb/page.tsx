@@ -1,4 +1,5 @@
 import { safeCookies } from "@/lib/prismb-cookies";
+import { prismbRoutes } from "@/lib/prismb-routes";
 
 import {
   FeaturesSection,
@@ -19,18 +20,18 @@ export default async function PriSMBRootPage() {
         <div className="flex items-center gap-3">
           {session ? (
             <a
-              href="/prismb/dashboard"
+              href={prismbRoutes.dashboard}
               className="rounded-lg bg-blue-600 px-4 py-1.5 font-medium text-sm text-white hover:bg-blue-700"
             >
               Перейти в дашборд
             </a>
           ) : (
             <>
-              <a href="/prismb/login" className="text-slate-500 text-sm hover:text-slate-700">
+              <a href={prismbRoutes.login} className="text-slate-500 text-sm hover:text-slate-700">
                 Войти
               </a>
               <a
-                href="/api/prismb/demo-login"
+                href={prismbRoutes.demo}
                 className="rounded-lg bg-blue-600 px-4 py-1.5 font-medium text-sm text-white hover:bg-blue-700"
               >
                 Демо

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { Check, ChevronRight } from "lucide-react";
 
+import { isPriSMBStaticExport, prismbRoutes } from "@/lib/prismb-routes";
 import { cn } from "@/lib/utils";
 
 import { type OnboardingData, StepBusiness, StepChannels, StepDone, StepGoals } from "./_components/onboarding-steps";
@@ -57,12 +58,14 @@ export default function OnboardingPage() {
           <StepDone
             data={data}
             onGo={async () => {
-              await fetch("/api/prismb/save-onboarding", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-              });
-              router.push("/prismb/dashboard");
+              if (!isPriSMBStaticExport) {
+                await fetch(prismbRoutes.saveOnboarding, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(data),
+                });
+              }
+              router.push(prismbRoutes.dashboard);
             }}
           />
         )}

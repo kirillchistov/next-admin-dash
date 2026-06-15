@@ -3,6 +3,7 @@ import { BarChart2, Check, MessageSquare, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { prismbRoutes } from "@/lib/prismb-routes";
 
 const PLANS = [
   {
@@ -16,7 +17,7 @@ const PLANS = [
     features: ["Дашборд с основными метриками", "Еженедельный отчёт", "3 вопроса ИИшнику в месяц"],
     cta: "Попробовать бесплатно",
     ctaVariant: "outline" as const,
-    href: "/api/prismb/demo-login",
+    href: prismbRoutes.demo,
   },
   {
     id: "basic",
@@ -35,7 +36,7 @@ const PLANS = [
     ],
     cta: "Попробовать 14 дней",
     ctaVariant: "default" as const,
-    href: "/api/prismb/demo-login",
+    href: prismbRoutes.demo,
   },
   {
     id: "pro",
@@ -54,7 +55,7 @@ const PLANS = [
     ],
     cta: "Связаться с нами",
     ctaVariant: "outline" as const,
-    href: "/prismb/login",
+    href: prismbRoutes.login,
   },
 ];
 
@@ -106,10 +107,10 @@ export function HeroSection() {
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button asChild size="lg" className="px-8">
-            <a href="/api/prismb/demo-login">Попробовать демо</a>
+            <a href={prismbRoutes.demo}>Попробовать демо</a>
           </Button>
           <Button asChild size="lg" variant="ghost">
-            <a href="/prismb/login">Войти</a>
+            <a href={prismbRoutes.login}>Войти</a>
           </Button>
         </div>
         <p className="mt-3 text-xs text-slate-400">Демо работает без регистрации — посмотрите, как это выглядит</p>
@@ -209,10 +210,10 @@ export function FooterSection() {
       <p className="text-sm font-semibold text-slate-700">PriSMB</p>
       <p className="mt-1 text-xs text-slate-400">Маркетинговый советник для малого и среднего бизнеса</p>
       <div className="mt-3 flex justify-center gap-4 text-xs text-slate-400">
-        <a href="/prismb/login" className="hover:text-slate-600">
+        <a href={prismbRoutes.login} className="hover:text-slate-600">
           Войти
         </a>
-        <a href="/api/prismb/demo-login" className="hover:text-slate-600">
+        <a href={prismbRoutes.demo} className="hover:text-slate-600">
           Демо
         </a>
       </div>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import { isPriSMBStaticExport, prismbRoutes } from "@/lib/prismb-routes";
 
 export function SwitchClientButton({ clientId }: { clientId: number }) {
   const router = useRouter();
@@ -12,12 +13,14 @@ export function SwitchClientButton({ clientId }: { clientId: number }) {
 
   async function handleSwitch() {
     setLoading(true);
-    await fetch("/api/prismb/switch-client", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ clientId }),
-    });
-    router.push("/prismb/dashboard");
+    if (!isPriSMBStaticExport) {
+      await fetch(prismbRoutes.switchClient, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clientId }),
+      });
+    }
+    router.push(prismbRoutes.dashboard);
     router.refresh();
   }
 

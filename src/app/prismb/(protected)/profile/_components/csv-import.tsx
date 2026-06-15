@@ -9,6 +9,7 @@ import { CheckCircle2, FileSpreadsheet, Loader2, Trash2, Upload } from "lucide-r
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { parseDirectCsv } from "@/lib/prismb-csv";
+import { isPriSMBStaticExport, prismbRoutes } from "@/lib/prismb-routes";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -25,6 +26,11 @@ export function CsvImport({ imported, importedAt, channelCount }: Props) {
 
   async function handleFile(file: File) {
     setErrors([]);
+    if (isPriSMBStaticExport) {
+      setErrors(["Импорт CSV недоступен в статической демо-версии на GitHub Pages."]);
+      return;
+    }
+
     setLoading(true);
     const text = await file.text();
     const { channels, errors: parseErrors } = parseDirectCsv(text);
@@ -33,7 +39,7 @@ export function CsvImport({ imported, importedAt, channelCount }: Props) {
       setLoading(false);
       return;
     }
-    const res = await fetch("/api/prismb/import-csv", {
+    const res = await fetch(prismbRoutes.importCsv, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ channels, source: file.name }),
@@ -47,7 +53,8 @@ export function CsvImport({ imported, importedAt, channelCount }: Props) {
   }
 
   async function handleRemove() {
-    await fetch("/api/prismb/import-csv", { method: "DELETE" });
+    if (isPriSMBStaticExport) return;
+    await fetch(prismbRoutes.importCsv, { method: "DELETE" });
     router.refresh();
   }
 
